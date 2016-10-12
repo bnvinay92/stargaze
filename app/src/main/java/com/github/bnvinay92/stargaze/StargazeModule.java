@@ -10,6 +10,8 @@ import com.github.bnvinay92.stargaze.data.CacheInterceptor;
 import com.github.bnvinay92.stargaze.services.ApodService;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import javax.inject.Singleton;
 
@@ -62,7 +64,7 @@ public class StargazeModule {
                                       HttpLoggingInterceptor loggingInterceptor) {
 
         return new OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
+//                .addInterceptor(loggingInterceptor)
                 .addInterceptor(authInterceptor)
                 .addNetworkInterceptor(cacheInterceptor)
                 .cache(cache)
@@ -104,5 +106,9 @@ public class StargazeModule {
                 new HttpLoggingInterceptor(message -> Timber.d(message));
         httpLoggingInterceptor.setLevel(BuildConfig.DEBUG ? HEADERS : NONE);
         return httpLoggingInterceptor;
+    }
+
+    @Provides SimpleDateFormat simpleDateFormat() {
+        return new SimpleDateFormat("yyyy-MM-dd", Locale.US);
     }
 }

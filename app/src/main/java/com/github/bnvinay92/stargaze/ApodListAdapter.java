@@ -23,6 +23,28 @@ public class ApodListAdapter extends RecyclerView.Adapter<ApodListAdapter.ApodVi
     private final LayoutInflater inflater;
     private OnItemClickListener listener;
 
+    public void insert(ApodViewModel apodViewModel) {
+        long timestamp = apodViewModel.id();
+        boolean notInserted = true;
+        for (int i = 0; i < apodList.size(); i++) {
+            if (apodList.get(i).id() < timestamp) {
+                apodList.add(i, apodViewModel);
+                notInserted = false;
+                notifyItemInserted(i);
+                break;
+            }
+        }
+        if (notInserted) {
+            apodList.add(apodViewModel);
+            notifyItemInserted(apodList.size() - 1);
+        }
+    }
+
+    public void clear() {
+        apodList = new ArrayList<>();
+        notifyDataSetChanged();
+    }
+
     public interface OnItemClickListener {
         void onItemClick(ApodViewModel item);
     }
@@ -40,8 +62,8 @@ public class ApodListAdapter extends RecyclerView.Adapter<ApodListAdapter.ApodVi
         ApodViewModel item = apodList.get(position);
         Glide.with(holder.itemView.getContext())
                 .load(item.url())
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(holder.binding.image);
     }
 
