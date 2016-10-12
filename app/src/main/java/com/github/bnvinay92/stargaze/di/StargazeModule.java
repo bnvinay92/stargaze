@@ -1,10 +1,11 @@
-package com.github.bnvinay92.stargaze;
+package com.github.bnvinay92.stargaze.di;
 
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.github.bnvinay92.stargaze.BuildConfig;
 import com.github.bnvinay92.stargaze.data.AuthInterceptor;
 import com.github.bnvinay92.stargaze.data.CacheInterceptor;
 import com.github.bnvinay92.stargaze.services.ApodService;

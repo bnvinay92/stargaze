@@ -2,6 +2,10 @@ package com.github.bnvinay92.stargaze;
 
 import android.app.Application;
 
+import com.github.bnvinay92.stargaze.di.DaggerStargazeComponent;
+import com.github.bnvinay92.stargaze.di.StargazeComponent;
+import com.github.bnvinay92.stargaze.di.StargazeModule;
+
 import hu.supercluster.paperwork.Paperwork;
 import timber.log.Timber;
 

@@ -1,4 +1,8 @@
-package com.github.bnvinay92.stargaze;
+package com.github.bnvinay92.stargaze.views;
+
+import com.github.bnvinay92.stargaze.data.ApodListQuery;
+import com.github.bnvinay92.stargaze.model.ApodViewModelAdapter;
+import com.github.bnvinay92.stargaze.model.RecentDateListGenerator;
 
 import java.text.ParseException;
 

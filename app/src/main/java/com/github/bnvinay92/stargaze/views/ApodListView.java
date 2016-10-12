@@ -1,4 +1,4 @@
-package com.github.bnvinay92.stargaze;
+package com.github.bnvinay92.stargaze.views;
 
 import com.github.bnvinay92.stargaze.values.ApodViewModel;
 

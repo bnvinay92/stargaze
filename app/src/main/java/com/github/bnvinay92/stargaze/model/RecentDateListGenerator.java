@@ -1,4 +1,6 @@
-package com.github.bnvinay92.stargaze;
+package com.github.bnvinay92.stargaze.model;
+
+import com.github.bnvinay92.stargaze.model.DateListGenerator;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

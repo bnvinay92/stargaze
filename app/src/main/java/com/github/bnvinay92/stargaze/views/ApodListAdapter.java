@@ -1,4 +1,4 @@
-package com.github.bnvinay92.stargaze;
+package com.github.bnvinay92.stargaze.views;
 
 import android.app.Activity;
 import android.databinding.DataBindingUtil;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.github.bnvinay92.stargaze.R;
 import com.github.bnvinay92.stargaze.databinding.ItemApodBinding;
 import com.github.bnvinay92.stargaze.values.ApodViewModel;
 
@@ -23,21 +24,18 @@ public class ApodListAdapter extends RecyclerView.Adapter<ApodListAdapter.ApodVi
     private final LayoutInflater inflater;
     private OnItemClickListener listener;
 
-    //TODO: Optimize sorted insert
     public void insert(ApodViewModel apodViewModel) {
-        long timestamp = apodViewModel.id();
-        boolean notInserted = true;
-        for (int i = 0; i < apodList.size(); i++) {
-            if (apodList.get(i).id() < timestamp) {
-                apodList.add(i, apodViewModel);
-                notInserted = false;
-                notifyItemInserted(i);
+        long id = apodViewModel.id();
+        for (int i = apodList.size() - 1; i >= 0; i--) {
+            if (apodList.get(i).id() > id) {
+                apodList.add(i + 1, apodViewModel);
+                notifyItemInserted(i + 1);
                 break;
             }
         }
-        if (notInserted) {
+        if (apodList.size() == 0) {
             apodList.add(apodViewModel);
-            notifyItemInserted(apodList.size() - 1);
+            notifyItemInserted(0);
         }
     }
 

@@ -1,4 +1,4 @@
-package com.github.bnvinay92.stargaze;
+package com.github.bnvinay92.stargaze.views;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.github.bnvinay92.stargaze.R;
 import com.github.bnvinay92.stargaze.databinding.ActivityApodDetailBinding;
 import com.github.bnvinay92.stargaze.values.ApodViewModel;
 

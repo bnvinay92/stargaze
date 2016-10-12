@@ -1,4 +1,4 @@
-package com.github.bnvinay92.stargaze;
+package com.github.bnvinay92.stargaze.views;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 
+import com.github.bnvinay92.stargaze.R;
+import com.github.bnvinay92.stargaze.Stargaze;
 import com.github.bnvinay92.stargaze.databinding.ActivityMainBinding;
 import com.github.bnvinay92.stargaze.values.ApodViewModel;
 

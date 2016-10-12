@@ -7,7 +7,7 @@
         android:id="@+id/activity_apod_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.github.bnvinay92.stargaze.ApodDetailActivity">
+        tools:context="com.github.bnvinay92.stargaze.views.ApodDetailActivity">
 
         <LinearLayout
             android:layout_width="match_parent"

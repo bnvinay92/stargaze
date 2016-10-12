@@ -1,4 +1,6 @@
-package com.github.bnvinay92.stargaze;
+package com.github.bnvinay92.stargaze.di;
+
+import com.github.bnvinay92.stargaze.views.MainActivity;
 
 import javax.inject.Singleton;
 
