@@ -11,13 +11,27 @@ import timber.log.Timber;
 public class Stargaze extends Application {
 
     public static final String NASA_API_KEY = "nasa_api_key";
+    private StargazeComponent component;
+    private String apiKey;
 
     @Override public void onCreate() {
         super.onCreate();
-        if (BuildConfig.DEBUG) {
-            Timber.plant(new Timber.DebugTree());
-        }
+        Timber.plant(new Timber.DebugTree());
         Paperwork paperwork = new Paperwork(this);
-        String API_KEY = paperwork.get(NASA_API_KEY);
+        apiKey = paperwork.get(NASA_API_KEY);
+        initComponent();
+    }
+
+    public StargazeComponent component() {
+        if (component == null) {
+            initComponent();
+        }
+        return component;
+    }
+
+    private void initComponent() {
+        component = DaggerStargazeComponent.builder()
+                .stargazeModule(new StargazeModule(this, apiKey))
+                .build();
     }
 }
