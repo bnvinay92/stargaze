@@ -5,18 +5,26 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.github.bnvinay92.stargaze.data.AuthInterceptor;
+import com.github.bnvinay92.stargaze.data.CacheInterceptor;
 import com.github.bnvinay92.stargaze.services.ApodService;
+
+import java.io.File;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import okhttp3.HttpUrl;
+import okhttp3.Cache;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
+import timber.log.Timber;
+
+import static okhttp3.logging.HttpLoggingInterceptor.Level.HEADERS;
+import static okhttp3.logging.HttpLoggingInterceptor.Level.NONE;
 
 /**
  * Created by Vinay on 12/10/16.
@@ -49,18 +57,15 @@ public class StargazeModule {
     }
 
     @Provides
-    OkHttpClient providesOkHttpClient() {
+    OkHttpClient providesOkHttpClient(Cache cache, AuthInterceptor authInterceptor,
+                                      CacheInterceptor cacheInterceptor,
+                                      HttpLoggingInterceptor loggingInterceptor) {
 
         return new OkHttpClient.Builder()
-                .addInterceptor(chain -> {
-                    Request original = chain.request();
-                    HttpUrl url = original.url().newBuilder()
-                            .addQueryParameter("api_key", apiKey)
-                            .build();
-                    return chain.proceed(original.newBuilder()
-                            .url(url)
-                            .build());
-                })
+                .addInterceptor(loggingInterceptor)
+                .addInterceptor(authInterceptor)
+                .addNetworkInterceptor(cacheInterceptor)
+                .cache(cache)
                 .build();
     }
 
@@ -79,4 +84,25 @@ public class StargazeModule {
         return retrofit.create(ApodService.class);
     }
 
+    @Provides
+    Cache providesCache() {
+        Cache cache = null;
+        try {
+            cache = new Cache(new File(application.getCacheDir(), "http-cache"), 10 * 1024 * 1024);
+        } catch (Exception e) {
+            Timber.e("Cache creation failed");
+        }
+        return cache;
+    }
+
+    @Provides AuthInterceptor authInterceptor() {
+        return new AuthInterceptor(apiKey);
+    }
+
+    @Provides HttpLoggingInterceptor provideHttpLoggingInterceptor() {
+        HttpLoggingInterceptor httpLoggingInterceptor =
+                new HttpLoggingInterceptor(message -> Timber.d(message));
+        httpLoggingInterceptor.setLevel(BuildConfig.DEBUG ? HEADERS : NONE);
+        return httpLoggingInterceptor;
+    }
 }
