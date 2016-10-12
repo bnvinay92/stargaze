@@ -1,8 +1,10 @@
 package com.github.bnvinay92.stargaze;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -13,32 +15,31 @@ import rx.Observable;
  */
 public class RecentDateListGenerator implements DateListGenerator {
 
-    public static final int APODS_PER_PAGE = 10;
-    private final String currentDate;
+    public static final int APODS_PER_PAGE = 20;
+    private final SimpleDateFormat dateFormat;
 
     @Inject public RecentDateListGenerator(SimpleDateFormat dateFormat) {
-        this.currentDate = dateFormat.format(new Date());
+        this.dateFormat = dateFormat;
+
     }
 
-    @Override public Observable<String> execute() {
+    @Override public Observable<String> execute(Observable<Integer> pages) {
         return Observable.from(generateMostRecentDates(APODS_PER_PAGE));
     }
 
-    //TODO
     private Iterable<String> generateMostRecentDates(int pageOffset) {
-        return Arrays.asList(
-                "2016-5-21",
-                "2016-5-20",
-                "2016-5-19",
-                "2016-5-18",
-                "2016-5-17",
-                "2016-5-16",
-                "2016-5-15",
-                "2016-5-14",
-                "2016-5-13",
-                "2016-5-12",
-                "2016-5-11",
-                "2016-5-10"
-        );
+        Date today = new Date();
+        List<String> dates = new ArrayList<>();
+        for (int numDays = 0; numDays < pageOffset; numDays++) {
+            dates.add(dateFormat.format(subtractDays(today, numDays)));
+        }
+        return dates;
+    }
+
+    public static Date subtractDays(Date date, int numDays) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.DAY_OF_MONTH, -numDays);
+        return cal.getTime();
     }
 }

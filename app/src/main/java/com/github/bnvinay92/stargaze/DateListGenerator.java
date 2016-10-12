@@ -6,5 +6,5 @@ import rx.Observable;
  * Created by Vinay on 12/10/16.
  */
 public interface DateListGenerator {
-    Observable<String> execute();
+    Observable<String> execute(Observable<Integer> pages);
 }

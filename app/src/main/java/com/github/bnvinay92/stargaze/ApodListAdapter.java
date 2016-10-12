@@ -23,6 +23,7 @@ public class ApodListAdapter extends RecyclerView.Adapter<ApodListAdapter.ApodVi
     private final LayoutInflater inflater;
     private OnItemClickListener listener;
 
+    //TODO: Optimize sorted insert
     public void insert(ApodViewModel apodViewModel) {
         long timestamp = apodViewModel.id();
         boolean notInserted = true;

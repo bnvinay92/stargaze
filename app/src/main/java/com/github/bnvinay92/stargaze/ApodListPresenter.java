@@ -33,8 +33,8 @@ public class ApodListPresenter {
 
     public void attachView(ApodListView activity) {
         this.view = activity;
-        subscription = apodListQuery.execute(recentDateListGenerator.execute())
-                .doOnSubscribe(()->view.showLoading())
+        subscription = apodListQuery.execute(recentDateListGenerator.execute(null))
+                .doOnSubscribe(() -> view.showLoading())
                 .observeOn(Schedulers.computation())
                 .filter(apodEntity -> apodEntity.mediaType().equals("image"))
                 .map(apodEntity -> {
