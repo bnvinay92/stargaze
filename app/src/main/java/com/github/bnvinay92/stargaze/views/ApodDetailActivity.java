@@ -69,7 +69,6 @@ public class ApodDetailActivity extends AppCompatActivity implements ApodDetailV
         binding.title.setText(viewModel.title());
         binding.date.setText(viewModel.date());
         binding.copyright.setText(viewModel.copyright());
-        binding.explanation.setText(viewModel.explanation());
     }
 
     @Override public void showOnMostRecentApodAlready() {

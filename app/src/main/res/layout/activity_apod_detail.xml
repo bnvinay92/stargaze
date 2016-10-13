@@ -3,66 +3,61 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <ScrollView
-        android:id="@+id/activity_apod_detail"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         tools:context="com.github.bnvinay92.stargaze.views.ApodDetailActivity">
 
-        <LinearLayout
+        <android.support.percent.PercentFrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <android.support.percent.PercentFrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/image"
+                android:foregroundGravity="center"
+                android:scaleType="centerCrop"
+                app:layout_aspectRatio="100%"
+                app:layout_widthPercent="100%" />
 
-                <ImageView
-                    android:id="@+id/image"
-                    android:foregroundGravity="center"
-                    android:scaleType="centerCrop"
-                    app:layout_aspectRatio="100%"
-                    app:layout_widthPercent="100%" />
+            <ImageView
+                android:id="@+id/left"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="left|center_vertical"
+                app:srcCompat="@drawable/ic_chevron_left_black_24dp"
+                tools:ignore="RtlHardcoded" />
 
-                <ImageView
-                    android:id="@+id/left"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="left|center_vertical"
-                    app:srcCompat="@drawable/ic_chevron_left_black_24dp"
-                    tools:ignore="RtlHardcoded" />
+            <ImageView
+                android:id="@+id/right"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="right|center_vertical"
+                app:srcCompat="@drawable/ic_chevron_right_black_24dp"
+                tools:ignore="RtlHardcoded" />
 
-                <ImageView
-                    android:id="@+id/right"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="right|center_vertical"
-                    app:srcCompat="@drawable/ic_chevron_right_black_24dp"
-                    tools:ignore="RtlHardcoded" />
+        </android.support.percent.PercentFrameLayout>
 
-            </android.support.percent.PercentFrameLayout>
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/copyright"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/copyright"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/explanation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/explanation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
 </layout>

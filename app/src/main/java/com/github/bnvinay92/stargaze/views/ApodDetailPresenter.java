@@ -41,7 +41,7 @@ public class ApodDetailPresenter {
     void onShowNewerApod() {
         String newerApod;
         try {
-            newerApod = adjacentDateGenerator.execute(view.getDate()).second;
+            newerApod = adjacentDateGenerator.newer(view.getDate());
         } catch (ParseException e) {
             throw new IllegalStateException("Date corrupted");
         }
@@ -55,7 +55,7 @@ public class ApodDetailPresenter {
     void onShowOlderApod() {
         String olderApod;
         try {
-            olderApod = adjacentDateGenerator.execute(view.getDate()).first;
+            olderApod = adjacentDateGenerator.older(view.getDate());
         } catch (ParseException e) {
             throw new IllegalStateException("Date corrupted");
         }

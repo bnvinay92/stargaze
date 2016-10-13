@@ -29,7 +29,7 @@ public class AdjacentDatesQuery {
         }
     }
 
-    public Pair<String, String> execute(String date) throws ParseException {
+    private Pair<String, String> execute(String date) throws ParseException {
         String prevDate;
         String nextDate;
 
@@ -41,5 +41,13 @@ public class AdjacentDatesQuery {
         nextDate = tomorrow.after(maxDate) ? null : dateFormat.format(tomorrow);
 
         return new Pair<>(prevDate, nextDate);
+    }
+
+    public String newer(String date) throws ParseException {
+        return execute(date).second;
+    }
+
+    public String older(String date) throws ParseException {
+        return execute(date).first;
     }
 }
