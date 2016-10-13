@@ -1,10 +1,9 @@
 package com.github.bnvinay92.stargaze.model;
 
-import com.github.bnvinay92.stargaze.model.DateListGenerator;
+import com.github.bnvinay92.stargaze.util.Util;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -33,15 +32,9 @@ public class RecentDateListGenerator implements DateListGenerator {
         Date today = new Date();
         List<String> dates = new ArrayList<>();
         for (int numDays = 0; numDays < pageOffset; numDays++) {
-            dates.add(dateFormat.format(subtractDays(today, numDays)));
+            dates.add(dateFormat.format(Util.subtractDays(today, numDays)));
         }
         return dates;
     }
 
-    public static Date subtractDays(Date date, int numDays) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        cal.add(Calendar.DAY_OF_MONTH, -numDays);
-        return cal.getTime();
-    }
 }

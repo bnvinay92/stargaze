@@ -19,8 +19,14 @@ public class ApodListQuery {
         this.apodService = apodService;
     }
 
+    /**
+     * Runs on IO Scheduler
+     * @param dates
+     * @return
+     */
     public Observable<ApodEntity> execute(Observable<String> dates) {
         return dates.observeOn(Schedulers.io())
-                .flatMap(apodService::getApodByDate);
+                .flatMap(date -> apodService.getApodByDate(date)
+                        .toObservable());
     }
 }

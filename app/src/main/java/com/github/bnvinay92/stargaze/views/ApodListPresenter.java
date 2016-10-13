@@ -50,7 +50,7 @@ public class ApodListPresenter {
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(apodViewModel -> {
-                            view.insert(apodViewModel);
+                            view.push(apodViewModel);
                         },
                         throwable -> Timber.e(throwable, throwable.getMessage()));
     }

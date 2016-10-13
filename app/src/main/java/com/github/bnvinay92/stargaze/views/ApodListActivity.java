@@ -13,7 +13,7 @@ import com.github.bnvinay92.stargaze.values.ApodViewModel;
 
 import javax.inject.Inject;
 
-public class MainActivity extends AppCompatActivity implements ApodListAdapter.OnItemClickListener, ApodListView {
+public class ApodListActivity extends AppCompatActivity implements ApodListAdapter.OnItemClickListener, ApodListView {
 
     public static final int SPAN_COUNT = 2;
     private ActivityMainBinding binding;
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements ApodListAdapter.O
 
     @Override public void onItemClick(ApodViewModel item) {
         Intent apodDetailViewStarter = new Intent(this, ApodDetailActivity.class);
-        apodDetailViewStarter.putExtra(ApodViewModel.EXTRA, item);
+        apodDetailViewStarter.putExtra(ApodViewModel.EXTRA, item.date());
         startActivity(apodDetailViewStarter);
     }
 
@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity implements ApodListAdapter.O
         presenter.detachView(isFinishing());
     }
 
-    @Override public void insert(ApodViewModel apodViewModel) {
-        adapter.insert(apodViewModel);
+    @Override public void push(ApodViewModel apodViewModel) {
+        adapter.add(apodViewModel);
     }
 
     @Override public void showLoading() {

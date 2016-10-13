@@ -12,6 +12,7 @@ import com.google.auto.value.AutoValue;
 public abstract class ApodViewModel implements Parcelable {
 
     public static final String EXTRA = "com.github.bnvinay92.stargaze.extras.ApodViewModel";
+    public static final ApodViewModel LOADING = create(0L, "", "", "", "", "", "", "loading", "");
 
     public abstract long id();
     public abstract String url();

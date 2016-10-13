@@ -20,9 +20,26 @@
 
                 <ImageView
                     android:id="@+id/image"
+                    android:foregroundGravity="center"
                     android:scaleType="centerCrop"
                     app:layout_aspectRatio="100%"
                     app:layout_widthPercent="100%" />
+
+                <ImageView
+                    android:id="@+id/left"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="left|center_vertical"
+                    app:srcCompat="@drawable/ic_chevron_left_black_24dp"
+                    tools:ignore="RtlHardcoded" />
+
+                <ImageView
+                    android:id="@+id/right"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="right|center_vertical"
+                    app:srcCompat="@drawable/ic_chevron_right_black_24dp"
+                    tools:ignore="RtlHardcoded" />
 
             </android.support.percent.PercentFrameLayout>
 
