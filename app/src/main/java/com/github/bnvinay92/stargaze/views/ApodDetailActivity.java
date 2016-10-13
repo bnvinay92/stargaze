@@ -58,8 +58,8 @@ public class ApodDetailActivity extends AppCompatActivity implements ApodDetailV
         if (mediaType.equals("image")) {
             Glide.with(this)
                     .load(viewModel.url())
-                    .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .centerCrop()
                     .into(binding.image);
         } else if (mediaType.equals("loading")) {
             binding.image.setImageResource(R.drawable.ic_hourglass_empty_black_24dp);
@@ -68,7 +68,6 @@ public class ApodDetailActivity extends AppCompatActivity implements ApodDetailV
         }
         binding.title.setText(viewModel.title());
         binding.date.setText(viewModel.date());
-        binding.copyright.setText(viewModel.copyright());
     }
 
     @Override public void showOnMostRecentApodAlready() {
