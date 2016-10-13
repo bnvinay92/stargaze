@@ -3,6 +3,7 @@ package com.github.bnvinay92.stargaze.views;
 import com.github.bnvinay92.stargaze.data.ApodListQuery;
 import com.github.bnvinay92.stargaze.model.ApodViewModelAdapter;
 import com.github.bnvinay92.stargaze.model.RecentDateListGenerator;
+import com.jakewharton.rxrelay.PublishRelay;
 
 import java.text.ParseException;
 
@@ -23,6 +24,7 @@ public class ApodListPresenter {
     private final ApodListQuery apodListQuery;
     private final RecentDateListGenerator recentDateListGenerator;
     private final ApodViewModelAdapter adapter;
+    private final PublishRelay<Integer> pagesIntent = PublishRelay.create();
 
     private ApodListView view;
     private Subscription subscription = Subscriptions.unsubscribed();
@@ -37,8 +39,7 @@ public class ApodListPresenter {
 
     public void attachView(ApodListView activity) {
         this.view = activity;
-        subscription = apodListQuery.execute(recentDateListGenerator.execute(null))
-                .doOnSubscribe(() -> view.showLoading())
+        subscription = apodListQuery.execute(recentDateListGenerator.execute(pagesIntent.asObservable()))
                 .observeOn(Schedulers.computation())
                 .filter(apodEntity -> apodEntity.mediaType().equals("image"))
                 .map(apodEntity -> {
@@ -57,5 +58,9 @@ public class ApodListPresenter {
 
     public void detachView(boolean finishing) {
         subscription.unsubscribe();
+    }
+
+    public void loadPage(int page) {
+        pagesIntent.call(page);
     }
 }

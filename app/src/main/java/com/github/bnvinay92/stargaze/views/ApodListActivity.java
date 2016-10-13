@@ -13,12 +13,14 @@ import com.github.bnvinay92.stargaze.values.ApodViewModel;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 public class ApodListActivity extends AppCompatActivity implements ApodListAdapter.OnItemClickListener, ApodListView {
 
     public static final int SPAN_COUNT = 2;
     private ActivityMainBinding binding;
     private ApodListAdapter adapter;
-
+    private int page;
     @Inject ApodListPresenter presenter;
 
     @Override
@@ -27,17 +29,29 @@ public class ApodListActivity extends AppCompatActivity implements ApodListAdapt
         ((Stargaze) getApplication()).component().inject(this);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         initRecyclerView();
+        page = 0;
     }
 
     private void initRecyclerView() {
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, SPAN_COUNT);
         adapter = new ApodListAdapter(this);
-        binding.rview.setLayoutManager(new GridLayoutManager(this, SPAN_COUNT));
+        binding.rview.setLayoutManager(gridLayoutManager);
         binding.rview.setAdapter(adapter);
+        binding.rview.addOnScrollListener(new EndlessRecyclerViewScrollListener(gridLayoutManager) {
+            @Override public void onLoadMore(int page, int totalItemsCount) {
+                Timber.d("Page: %s\n", page);
+                ApodListActivity.this.page = page;
+                presenter.loadPage(page);
+            }
+        });
     }
 
     @Override protected void onStart() {
         super.onStart();
         presenter.attachView(this);
+        if (page == 0) {
+            presenter.loadPage(page);
+        }
     }
 
     @Override public void onItemClick(ApodViewModel item) {

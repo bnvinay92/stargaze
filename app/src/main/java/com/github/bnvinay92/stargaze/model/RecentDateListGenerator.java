@@ -25,14 +25,15 @@ public class RecentDateListGenerator implements DateListGenerator {
     }
 
     @Override public Observable<String> execute(Observable<Integer> pages) {
-        return Observable.from(generateMostRecentDates(APODS_PER_PAGE));
+        return pages.map(page -> page * APODS_PER_PAGE)
+                .map(dateOffsetNumber -> Util.subtractDays(new Date(), dateOffsetNumber))
+                .concatMapEager(dateOffset -> Observable.from(generateDates(dateOffset, APODS_PER_PAGE)));
     }
 
-    private Iterable<String> generateMostRecentDates(int pageOffset) {
-        Date today = new Date();
+    private Iterable<String> generateDates(Date dateOffset, int apodsPerPage) {
         List<String> dates = new ArrayList<>();
-        for (int numDays = 0; numDays < pageOffset; numDays++) {
-            dates.add(dateFormat.format(Util.subtractDays(today, numDays)));
+        for (int numDays = 0; numDays < apodsPerPage; numDays++) {
+            dates.add(dateFormat.format(Util.subtractDays(dateOffset, numDays)));
         }
         return dates;
     }
