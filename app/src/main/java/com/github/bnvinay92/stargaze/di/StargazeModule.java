@@ -13,6 +13,7 @@ import com.github.bnvinay92.stargaze.services.ApodService;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import javax.inject.Singleton;
 
@@ -110,6 +111,8 @@ public class StargazeModule {
     }
 
     @Provides SimpleDateFormat simpleDateFormat() {
-        return new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        return simpleDateFormat;
     }
 }
