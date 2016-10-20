@@ -20,7 +20,6 @@ public class ApodDetailActivity extends AppCompatActivity implements ApodDetailV
 
     private String apodDate;
     private ActivityApodDetailBinding binding;
-    private PhotoViewAttacher imageViewAttacher;
 
     @Inject ApodDetailPresenter presenter;
 
@@ -34,7 +33,6 @@ public class ApodDetailActivity extends AppCompatActivity implements ApodDetailV
         } else {
             apodDate = savedInstanceState.getString(ApodViewModel.EXTRA, getApodDate());
         }
-        imageViewAttacher = new PhotoViewAttacher(binding.image);
         binding.left.setOnClickListener(v -> presenter.onShowNewerApod());
         binding.right.setOnClickListener(v -> presenter.onShowOlderApod());
         binding.image.setOnClickListener(v -> finish());
