@@ -25,21 +25,21 @@ public class ApodListAdapter extends RecyclerView.Adapter<ApodListAdapter.ApodVi
     private OnItemClickListener listener;
 
     public void add(ApodViewModel apodViewModel) {
-        int position = apodList.size();
-        apodList.add(position, apodViewModel);
-        notifyItemInserted(position);
-//        long id = apodViewModel.id();
-//        for (int i = apodList.size() - 1; i >= 0; i--) {
-//            if (apodList.get(i).id() > id) {
-//                apodList.add(i + 1, apodViewModel);
-//                notifyItemInserted(i + 1);
-//                break;
-//            }
-//        }
-//        if (apodList.size() == 0) {
-//            apodList.add(apodViewModel);
-//            notifyItemInserted(0);
-//        }
+//        int position = apodList.size();
+//        apodList.add(position, apodViewModel);
+//        notifyItemInserted(position);
+        long id = apodViewModel.id();
+        for (int i = apodList.size() - 1; i >= 0; i--) {
+            if (apodList.get(i).id() > id) {
+                apodList.add(i + 1, apodViewModel);
+                notifyItemInserted(i + 1);
+                break;
+            }
+        }
+        if (apodList.size() == 0) {
+            apodList.add(apodViewModel);
+            notifyItemInserted(0);
+        }
     }
 
     public void clear() {
