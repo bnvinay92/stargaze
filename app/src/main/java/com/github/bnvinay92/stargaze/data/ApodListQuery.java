@@ -25,8 +25,9 @@ public class ApodListQuery {
      * @return
      */
     public Observable<ApodEntity> execute(Observable<String> dates) {
-        return dates.observeOn(Schedulers.io())
+        return dates
                 .flatMap(date -> apodService.getApodByDate(date)
+                        .subscribeOn(Schedulers.io())
                         .toObservable());
     }
 }

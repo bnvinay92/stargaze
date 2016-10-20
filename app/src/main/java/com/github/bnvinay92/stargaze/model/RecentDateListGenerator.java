@@ -16,7 +16,7 @@ import rx.Observable;
  */
 public class RecentDateListGenerator implements DateListGenerator {
 
-    public static final int APODS_PER_PAGE = 20;
+    public static final int APODS_PER_PAGE = 10;
     private final SimpleDateFormat dateFormat;
 
     @Inject public RecentDateListGenerator(SimpleDateFormat dateFormat) {
