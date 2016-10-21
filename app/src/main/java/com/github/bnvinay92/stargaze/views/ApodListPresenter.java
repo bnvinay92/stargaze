@@ -9,6 +9,7 @@ import java.text.ParseException;
 
 import javax.inject.Inject;
 
+import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.exceptions.Exceptions;
@@ -40,15 +41,16 @@ public class ApodListPresenter {
     public void attachView(ApodListView activity) {
         this.view = activity;
         subscription = apodListQuery.execute(recentDateListGenerator.execute(pagesIntent.asObservable()))
-                .observeOn(Schedulers.computation())
-                .filter(apodEntity -> apodEntity.mediaType().equals("image"))
-                .map(apodEntity -> {
-                    try {
-                        return adapter.execute(apodEntity);
-                    } catch (ParseException e) {
-                        throw Exceptions.propagate(e);
-                    }
-                })
+                .flatMap(entity -> Observable.just(entity)
+                        .subscribeOn(Schedulers.computation())
+                        .filter(apodEntity -> apodEntity.mediaType().equals("image"))
+                        .map(apodEntity -> {
+                            try {
+                                return adapter.execute(apodEntity);
+                            } catch (ParseException e) {
+                                throw Exceptions.propagate(e);
+                            }
+                        }))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(apodViewModel -> {
                             view.push(apodViewModel);
